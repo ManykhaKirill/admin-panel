@@ -1,0 +1,1 @@
+export { PostsAdminPage } from './ui/PostsAdminPage';

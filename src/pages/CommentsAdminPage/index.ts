@@ -1,0 +1,1 @@
+export { CommentsAdminPage } from './ui/CommentsAdminPage';

@@ -1,0 +1,1 @@
+export { useSearchComment } from './model/useSearchComment';

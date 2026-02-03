@@ -1,0 +1,1 @@
+export { useSearchPost } from './model/useSearchPost';

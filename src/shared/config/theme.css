@@ -1,0 +1,16 @@
+
+
+@theme {
+  --bg-main: #f3f4f6;
+  --bg-card: #ffffff;
+  --text-main: #1e293b;
+  --bg-sidebar-from: #1447e6;
+  --bg-sidebar-to: #1c398e;
+  --border-default: #e5e7eb;
+}
+
+.dark {
+  --bg-main: #0f172a;
+  --bg-card: #1e293b;
+  --text-main: #e2e8f0;
+}
