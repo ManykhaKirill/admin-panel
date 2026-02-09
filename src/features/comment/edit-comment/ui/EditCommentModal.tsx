@@ -1,23 +1,28 @@
 import { type FC, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { Modal } from '@/shared/ui/Modal';
-import type { EditComment } from "@/entities/comment";
+import { Button } from "@/shared/ui/Button";
+import { Field } from "@/shared/ui/Field";
+import { Input } from "@/shared/ui/Input";
+import type { Comment } from "@/entities/comment";
 import { useUpdateComment } from '../model/useUpdateComment';
 
 export const EditCommentModal: FC<{
     isOpen: boolean;
-    comment: EditComment;
+    comment: Comment;
     onClose: () => void;
 }> = ({
   isOpen,
   comment, 
   onClose,
 }) => {
+  const [name, setName] = useState(comment?.name)
   const [body, setBody] = useState(comment?.body);
-  const { mutateAsync, isPending } = useUpdateComment();
+  const { mutateAsync, isPending } = useUpdateComment(comment?.id);
 
   useEffect(() => {
     if(isOpen){
+      setName(comment?.name);
       setBody(comment?.body);
     }
   }, [isOpen, comment])
@@ -25,7 +30,11 @@ export const EditCommentModal: FC<{
   const handleSave = async () => {
     if (!comment) return;
     try {
-      await mutateAsync({ id: comment.id, body });
+      await mutateAsync({ 
+          ...comment,
+          name, 
+          body 
+      });
       toast.success('Comment updated successfully!');
       onClose();
     } catch (e) {
@@ -41,28 +50,48 @@ export const EditCommentModal: FC<{
       onClose={onClose}
       footer={
           <>
-            <button
+            <Button
+              variant="secondary"
               onClick={onClose}
-              className="px-4 py-2 rounded-md bg-gray-200 hover:bg-gray-300 dark:bg-zinc-700 dark:hover:bg-zinc-600"
+              disabled={isPending}
             >
-              Cancel
-            </button>
-            <button
+            Cancel
+            </Button>
+            <Button
               onClick={handleSave}
               disabled={isPending}
-              className="px-4 py-2 rounded-md bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50"
             >
-              {isPending ? "Saving..." : "Save"}
-            </button>
+              {isPending ? 'Saving…' : 'Save'}
+            </Button>
           </>
         }
       >
-      <textarea
-        value={body}
-        onChange={(e) => setBody(e.target.value)}
-        className="w-full min-h-[240px] p-3 border rounded-md focus:ring-2 focus:ring-blue-400 outline-none dark:bg-zinc-800 dark:border-zinc-600 dark:text-white"
-        placeholder="Edit comment body..."
-      />
+      <Field label='Title'>
+        <Input
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          placeholder='Enter comment title…'
+        />
+      </Field>
+      <Field label='Content'>
+          <textarea
+            value={body}
+            onChange={(e) => setBody(e.target.value)}
+            placeholder="Enter comment content…"
+            className="
+              w-full min-h-[240px] px-3 py-2
+              rounded-[var(--radius-sm)]
+              bg-[var(--bg-surface)]
+              text-[var(--text-primary)]
+              border border-[var(--border-default)]
+              shadow-[var(--shadow-sm)]
+              transition
+              resize-y
+              focus:outline-none
+              focus:ring-2 focus:ring-[var(--accent-primary)]
+            "
+          />
+        </Field>
      </Modal>
   );
 };

@@ -1,17 +1,15 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { API_URL } from '@/shared/api';
-import type { EditComment } from "@/entities/comment";
+import type { Comment } from "@/entities/comment";
 
-export const useUpdateComment = () => {
+export const useUpdateComment = (commentId: number) => {
     const client = useQueryClient();
         return useMutation({
-            mutationFn: async (comment: EditComment) => {
+            mutationFn: async (data: Comment) => {
                 try {
-                    const response = await fetch(`${API_URL}/comments/${comment.id}`, {
+                    const response = await fetch(`${API_URL}/comments/${commentId}`, {
                         method: 'PUT',
-                        body: JSON.stringify({
-                            body: comment.body
-                        }),
+                        body: JSON.stringify(data),
                         headers: {'Content-type': 'application/json'}
                     });
                     const updatedComment = await response.json();

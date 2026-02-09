@@ -1,50 +1,61 @@
-import type { FC } from 'react';
+import { type FC, useEffect, useState } from 'react';
 import { Sun, Moon } from 'lucide-react';
 
-export const Switch: FC<{ 
-  onClick: () => void; 
+export const Switch: FC<{
   theme: 'light' | 'dark';
-}> = ({
-  theme,
-  onClick
-}) => (
-    <label className="inline-flex items-center relative">
-      <input 
-        className="peer hidden" 
-        id="toggle" 
-        type="checkbox"
-        checked={theme === 'dark'}
-        onClick={onClick}
-      />
-      <div className="
-        relative w-[110px] h-[50px] 
-        bg-card 
+  onToggle: () => void;
+}> = ({ theme, onToggle }) => {
+  const [checked, setChecked] = useState(theme === 'dark');
+
+  useEffect(() => {
+    setChecked(theme === 'dark');
+  }, [theme]);
+
+  return (
+    <button
+      type="button"
+      onClick={() => {
+        setChecked(v => !v);
+        onToggle();
+      }}
+      className="
+        relative w-14 h-7
         rounded-full
-        border border-border
-        after:absolute after:content-[''] after:w-[40px] after:h-[40px] 
-        after:bg-gradient-to-r from-orange-500 to-yellow-400 
-        peer-checked:after:from-zinc-900 
-        peer-checked:after:to-zinc-900 
-        after:rounded-full
-        after:top-[5px] after:left-[5px] 
-        active:after:w-[50px] peer-checked:after:left-[105px] peer-checked:after:translate-x-[-100%] 
-        shadow-sm duration-300 after:duration-300 after:shadow-md" 
+        bg-[var(--bg-surface-muted)]
+        border border-[var(--border-subtle)]
+        flex items-center
+        transition-colors duration-200
+        focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)]
+      "
+    >
+      <span
+        className="
+          absolute w-6 h-6 rounded-full
+          bg-[var(--accent-primary)]
+          shadow-[var(--shadow-sm)]
+          transition-transform duration-300 ease-in-out
+          top-[1px]
+        "
+        style={{
+          transform: checked ? 'translateX(30px)' : 'translateX(0px)',
+        }}
       />
-      <Sun className='
-        fill-white 
-        peer-checked:opacity-60
-        absolute 
-        w-6 h-6 left-[14px]'
-        size={24}
+      <Sun
+        size={14}
+        className="
+          absolute left-1 top-1/2 -translate-y-1/2
+          text-[var(--text-inverse)]
+          opacity-80
+        "
       />
-      <Moon className='
-        fill-black 
-        opacity-60
-        peer-checked:opacity-70
-        peer-checked:fill-white 
-        absolute 
-        w-6 h-6 right-[12px]'
-        size={24} 
+      <Moon
+        size={14}
+        className="
+          absolute right-1 top-1/2 -translate-y-1/2
+          text-[var(--text-inverse)]
+          opacity-60
+        "
       />
-    </label>
+    </button>
   );
+};

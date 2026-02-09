@@ -26,56 +26,90 @@ export function Table<T extends Record<string, any>>({
 }: TableProps<T>) {
 
     return (
-      <div className="relative flex flex-col text-gray-700 bg-card shadow-md rounded-lg bg-clip-border">
+      <div  
+        className="
+          relative flex flex-col
+          bg-[var(--bg-surface)]
+          text-[var(--text-primary)]
+          border border-[var(--border-subtle)]
+          rounded-md
+          shadow-[var(--shadow-sm)]
+          p-4
+          transition-[var(--transition-base)]
+      ">
 
         {isError && <div className="text-red-600">Error loading data</div>}
 
         {!isError && (
-          <table className="w-full border-collapse bg-card rounded shadow-sm">
+          <table className="w-full border-collapse">
             <thead>
-              <tr className="bg-table-header-bg text-left text-sm text-table-text-secondary">
+              <tr className="
+              bg-[var(--bg-surface-muted)]
+                text-sm
+                text-[var(--text-secondary)]
+              ">
                 {columns.map((col) => (
                   <th 
                     key={String(col.key)} 
-                    className="p-4 border-b border-border"
+                    className="
+                      p-4
+                      border-b border-[var(--border-subtle)]
+                      font-medium"
                   >
                     {col.label}
                   </th>
                 ))}
-                {(onEdit || onDelete) && <th className="p-4 border-b border-border text-center">Actions</th>}
+                {(onEdit || onDelete) && <th className="
+                      p-4
+                      border-b border-[var(--border-subtle)]
+                      font-medium"
+                    >Actions</th>}
               </tr>
             </thead>
             <tbody>
             {isLoading ? Array.from({ length: 5 }).map((_, i) => (
               <tr key={i} className="animate-pulse">
                 {Array.from({ length: columns.length + 1 }).map((_, index) => (
-                  <td key={index} className="p-4 border-b border-border">
-                    <div className='h-4 bg-slate-200 rounded'/>
+                  <td key={index} className="
+                    p-4
+                    border-b border-[var(--border-subtle)]
+                    text-sm"
+                  >
+                    <div className='
+                        h-4
+                        rounded
+                        bg-[var(--border-subtle)]
+                        opacity-60'
+                      />
                   </td>
                 ))}
               </tr>
             ))
             :
             data?.map((item, idx) => (
-              <tr key={idx} className="hover:bg-slate-50">
+              <tr key={idx} className="
+              transition-colors 
+              hover:bg-[var(--bg-surface-muted)]
+              hover:shadow-[var(--shadow-md)]
+              ">
               {columns.map((col) => (
-                <td key={String(col.key)} className="p-4 border-b border-border">{String(item[col.key])}</td>
+                <td key={String(col.key)} className="
+                  p-4
+                  border-b border-[var(--border-subtle)]
+                  text-sm">
+                  {String(item[col.key])}
+                </td>
                 ))}
                 {(onEdit || onDelete) && (
-                <td className="p-4 border-b border-border text-left space-x-2">
+                <td className="
+                  p-4
+                  border-b border-[var(--border-subtle)]
+                  text-sm">
                   <div className='flex flex-row justify-center gap-2'>
                   {onEdit && (
                     <Button
+                      variant='secondary'
                       icon={<Edit size={16}/>}
-                      customStyle="
-                      flex items-center
-                      gap-1 px-3 py-1 
-                      rounded 
-                      bg-yellow-500 
-                      text-white 
-                      hover:bg-yellow-600
-                      cursor-pointer
-                      "
                       onClick={() => onEdit(item)}
                     >
                       Edit
@@ -83,16 +117,8 @@ export function Table<T extends Record<string, any>>({
                   )}
                   {onDelete && (
                     <Button
+                      variant='danger'
                       icon={<Trash size={16}/>}
-                      customStyle="
-                      flex items-center 
-                      gap-1 px-3 py-1 
-                      rounded 
-                      bg-red-500 
-                      text-white 
-                      hover:bg-red-600
-                      cursor-pointer
-                      "
                       onClick={() => onDelete(item)}
                     >
                     Delete

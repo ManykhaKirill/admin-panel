@@ -1,10 +1,10 @@
+import { Section } from '@/shared/ui/Section';
 import { 
   type Post, 
   PostCard, 
   usePostsQuery, 
   PostCardSkeleton 
 } from '@/entities/post';
-import { Section } from '@/shared/ui/Section';
 import { useSearchPost } from '@/features/post/search-post';
 
 export const PostsPage = () => {
@@ -15,7 +15,7 @@ export const PostsPage = () => {
     <Section name='Posts'>
         {isLoading ? (
           Array.from({ length: 12 }).map((_, i) => (
-            <PostCardSkeleton key={i}/>
+            <PostCardSkeleton key={i} />
         ))
       ) : (
         filtered?.map((post: Post) => (

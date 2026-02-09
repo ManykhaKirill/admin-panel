@@ -9,6 +9,14 @@
   /* ===== Transition ===== */
   --transition-fast: 120ms ease;
   --transition-base: 200ms ease;
+
+  --switch-track-bg: var(--bg-surface-muted);
+  --switch-track-border: var(--border-default);
+
+  --switch-thumb-bg: var(--accent-primary);
+  --switch-thumb-shadow: var(--shadow-sm);
+
+  --switch-track-active-bg: var(--accent-primary-soft);
 }
 
 [data-theme="light"] {
@@ -18,7 +26,7 @@
 
   --bg-app: #f8fafc;        /* общий фон */
   --bg-page: #f8fafc;       /* фон страниц */
-  --bg-layout: #0f172a;     /* sidebar / header */
+  --bg-layout: #f6f8fa;     /* sidebar / header */
   --bg-surface: #ffffff;    /* cards / tables / panels */
   --bg-surface-muted: #f1f5f9;
 
@@ -29,7 +37,7 @@
   --text-primary: #0f172a;
   --text-secondary: #334155;
   --text-muted: #64748b;
-  --text-inverse: #f8fafc;
+  --text-inverse: #020617;
 
   /* =====================
      BORDERS
@@ -74,20 +82,20 @@
      SURFACES
      ===================== */
 
-  --bg-app: #020617;
-  --bg-page: #020617;
-  --bg-layout: #020617;
+  --bg-app: #0d1117;
+  --bg-page: #0d1117;
+  --bg-layout: #010409;
   --bg-surface: #020617;
-  --bg-surface-muted: #020617;
+  --bg-surface-muted: #151b23;
 
   /* =====================
      TEXT
      ===================== */
 
-  --text-primary: #f8fafc;
+  --text-primary: #f0f6fc;
   --text-secondary: #cbd5e1;
   --text-muted: #94a3b8;
-  --text-inverse: #020617;
+  --text-inverse: #f0f6fc;
 
   /* =====================
      BORDERS

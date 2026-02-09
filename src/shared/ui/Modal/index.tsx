@@ -23,29 +23,50 @@ export const Modal = ({
       {open && (
         <>
           <motion.div
-            className="fixed inset-0 bg-black/40 backdrop-blur-sm z-40"
+            className="
+              fixed inset-0 z-40
+              bg-black/40
+            "
             onClick={onClose}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
           />
           <motion.div
-            className={`fixed z-50 inset-0 flex items-center justify-center`}
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.9 }}
+            className="fixed inset-0 z-50 flex items-center justify-center px-4"
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 10 }}
           >
             <div
-              className={`bg-white dark:bg-zinc-900 rounded-2xl shadow-2xl p-6 w-full ${widthClass}`}
+              className={`
+                w-full ${widthClass}
+                bg-[var(--bg-surface)]
+                text-[var(--text-primary)]
+                border border-[var(--border-default)]
+                rounded-[var(--radius-md)]
+                shadow-[var(--shadow-md)]
+                p-6
+              `}
               onClick={(e) => e.stopPropagation()}
             >
               {title && (
-                <h2 className="text-xl font-semibold mb-4 border-b border-zinc-200 dark:border-zinc-700 pb-2">
+                <h2
+                  className="
+                    text-lg font-semibold
+                    mb-4 pb-2
+                    border-b border-[var(--border-subtle)]
+                  "
+                >
                   {title}
                 </h2>
               )}
-              <div className="mb-4">{children}</div>
-              {footer && <div className="flex justify-end gap-2">{footer}</div>}
+               <div className="mb-4">{children}</div>
+              {footer && (
+                <div className="flex justify-end gap-2">
+                  {footer}
+                </div>
+              )}
             </div>
           </motion.div>
         </>

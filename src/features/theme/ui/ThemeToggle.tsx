@@ -5,6 +5,6 @@ export const ThemeToggle = () => {
     const { theme, toggle } = useTheme();
 
     return (
-        <Switch theme={theme} onClick={toggle} />
+        <Switch theme={theme} onToggle={toggle} />
     )
 }

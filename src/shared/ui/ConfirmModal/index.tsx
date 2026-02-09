@@ -1,5 +1,6 @@
 import type { FC } from 'react';
 import { Modal } from '../Modal';
+import { Button } from '../Button';
 
 interface ConfirmModalProps {
   isOpen: boolean;
@@ -16,8 +17,6 @@ export const ConfirmModal: FC<ConfirmModalProps> = ({
   onConfirm,
   onCancel,
 }) => {
-  if (!isOpen) return null;
-
   return (
     <Modal
       open={isOpen}
@@ -25,22 +24,24 @@ export const ConfirmModal: FC<ConfirmModalProps> = ({
       onClose={onCancel}
       footer={
         <>
-          <button
+          <Button
+            variant="secondary"
             onClick={onCancel}
-            className="px-4 py-2 rounded-md bg-gray-200 hover:bg-gray-300 dark:bg-zinc-700 dark:hover:bg-zinc-600"
           >
             Cancel
-          </button>
-          <button
+          </Button>
+          <Button
+            variant="danger"
             onClick={onConfirm}
-            className="px-4 py-2 rounded-md bg-red-600 text-white hover:bg-red-700"
           >
             Confirm
-          </button>
+          </Button>
         </>
       }
     >
-      <p className="text-sm text-zinc-700 dark:text-zinc-300">{message}</p>
+      <p className="text-sm text-[var(--text-secondary)]">
+        {message}
+      </p>
     </Modal>
   );
 };

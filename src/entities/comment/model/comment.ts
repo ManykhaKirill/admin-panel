@@ -6,6 +6,6 @@ export type Comment = {
     body: string;
 };
 
-export type EditComment = Pick<Comment, 'id' | 'body'>;
+export type EditComment = Pick<Comment, 'name' | 'body'>;
 
 export type SearchComment = Pick<Comment, 'name' | 'email' | 'body'>;

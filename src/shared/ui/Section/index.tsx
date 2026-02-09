@@ -9,7 +9,7 @@ export const Section: FC<{ name: string; children: ReactNode }> = ({
     let hasElements = Children.count(children);
 
     return (
-        hasElements ? 
+        hasElements ? (
             <motion.div
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -18,10 +18,18 @@ export const Section: FC<{ name: string; children: ReactNode }> = ({
             <div className='grid gap-4 sm:grid-cols-2 lg:grid-cols-3'>
                 {children}
             </div>
-            </motion.div> :
-            <div className='flex flex-col h-full justify-center items-center text-center text-slate-500'>
-                <Meh className='h-1/4 w-1/4' />
-                <span className='p-2 text-2xl'>Section {name} is empty</span>
+            </motion.div>) : (
+            <div className='
+                flex flex-col items-center justify-center
+                h-full
+                rounded-md
+                bg-[var(--bg-surface-muted)]
+                text-center
+                text-[var(--text-muted)]'
+            >
+                <Meh className='w-16 h-16 mb-3 opacity-70' />
+                <span className='text-lg'>Section {name} is empty</span>
             </div>
+        )
     )
 }

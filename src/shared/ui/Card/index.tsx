@@ -1,7 +1,7 @@
 import type { FC, ReactNode } from 'react';
 
 type CardPropd = {
-    style?: string;
+    className?: string;
     onClick?: () => void;
     hoverable?: boolean;
     selected?: boolean;
@@ -9,26 +9,54 @@ type CardPropd = {
 }
 
 export const Card: FC<CardPropd> = ({ 
-    style,
+    className = '',
     onClick,
     hoverable = false,
     selected = false,
     children 
 }) => {
-    const baseClasses = `
-        bg-[var(--bg-surface)]
-        text-[var(--text-primary)]
-        border border-[var(--border-subtle)]
-        rounded-md
-        shadow-[var(--shadow-sm)]
-        p-4
-        transition-[var(--transition-base)]
-        ${hoverable ? "hover:shadow-[var(--shadow-md)] hover:bg-[var(--bg-surface-muted)]" : ""}
-        ${selected ? "border-[var(--accent-primary)] bg-[var(--accent-primary-soft)]" : ""}
+    const isClickable = Boolean(onClick);
+
+  const baseClasses = `
+    bg-[var(--bg-surface)]
+    text-[var(--text-primary)]
+    border border-[var(--border-subtle)]
+    rounded-md
+    shadow-[var(--shadow-sm)]
+    p-4
+    transition-[var(--transition-base)]
   `;
 
+  const hoverClasses =
+    hoverable && !selected
+      ? `
+        hover:bg-[var(--bg-surface-muted)]
+        hover:shadow-[var(--shadow-md)]
+      `
+      : '';
+
+  const selectedClasses = selected
+    ? `
+      bg-[var(--accent-primary-soft)]
+      border-[var(--accent-primary)]
+    `
+    : '';
+
+  const clickableClasses = isClickable
+    ? 'cursor-pointer'
+    : '';
+
     return (
-        <div className={`${baseClasses} ${style}`} onClick={onClick}>
+        <div  
+            className={`
+                ${baseClasses}
+                ${hoverClasses}
+                ${selectedClasses}
+                ${clickableClasses}
+                ${className}
+            `} 
+            onClick={onClick}
+        >
                 {children}
         </div>
     )

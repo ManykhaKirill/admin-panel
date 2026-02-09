@@ -29,9 +29,9 @@ export const CommentsAdminPage: FC = () => {
           data={filtered || []}
           columns={[
             { key: "postId", label: "Post ID" },
-            { key: "name", label: "Name" },
+            { key: "name", label: "Title" },
             { key: "email", label: "Email" },
-            { key: "body", label: "Body" }
+            { key: "body", label: "Content" }
           ]}
           isLoading={isLoading}
           onEdit={handleEditClick}

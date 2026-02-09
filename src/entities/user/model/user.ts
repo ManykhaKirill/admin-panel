@@ -18,3 +18,14 @@ export type User = {
 };
 
 export type UserEdit = Pick<User, 'id' | 'name' | 'email' | 'phone'>;
+
+export type UserRole = 'Admin' | 'Moderator' | 'User';
+
+export type UserStatus = 'Active' | 'Blocked';
+
+export type UserView = User & {
+  role: UserRole;
+  status: UserStatus;
+  lastActiveAt: Date;
+  registeredAt: Date;
+};

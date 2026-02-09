@@ -1,5 +1,6 @@
 import type { FC } from 'react';
 import { type Post, PostDetailsCard } from '@/entities/post';
+import { useUserByIdQuery } from '@/entities/user';
 import {
   useCommentByIdQuery,
   CommentCardSkeleton,
@@ -12,29 +13,44 @@ export const PostDetails: FC<{
 }> = ({
   post,
  }) => {
-  const { data: comments, isLoading } = useCommentByIdQuery(post.id);
+  const { data: user, isLoading: isUserLoading } = useUserByIdQuery(post.userId);
+  const { data: comments, isLoading: isCommentsLoading } = useCommentByIdQuery(post.id);
   const filtered = useSearchComment(comments);
 
   return (
     <div className="space-y-8">
-      <PostDetailsCard post={post} />
-      <div className='h-full'>
-        <h2 className="text-xl font-semibold mb-4 text-text-main">
-          Комментарии {isLoading ? '(...)' : `(${filtered?.length})`}
+      <PostDetailsCard post={post} user={user} isLoading={isUserLoading} />
+      <section>
+        <h2 className="
+          text-xl
+          font-semibold
+          mb-4
+          text-[var(--text-primary)]
+          flex items-center gap-2
+        ">
+          Comments:
+          <span className="text-xl text-[var(--text-muted)]">
+            {isCommentsLoading ? '…' : filtered?.length}
+          </span>
         </h2>
-        {filtered?.length === 0 ? (
-          <div className="flex justify-center items-center text-text-main">Комментариев пока нет</div>
-        ) : (
-          <div className="gap-4">
-            {isLoading ? (
-              Array.from({ length: 4 }).map((_, i) => <CommentCardSkeleton key={i} />)
-            ) : (
-              filtered?.map((c) => (
-                <CommentCard key={c.id} comment={c} />
-            )))}
+        <div className="flex flex-col gap-4">
+        {isCommentsLoading && (
+          Array.from({ length: 4 }).map((_, i) => (
+            <CommentCardSkeleton key={i} />
+          ))
+        )}
+
+        {!isCommentsLoading && filtered?.length === 0 && (
+          <div className="flex justify-center items-center py-8 text-[var(--text-muted)]">
+            There are no comments yet
           </div>
         )}
+
+        {!isCommentsLoading && filtered?.map((c) => (
+          <CommentCard key={c.id} comment={c} />
+        ))}
       </div>
+      </section>
     </div>
   );
 };

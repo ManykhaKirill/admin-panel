@@ -1,5 +1,6 @@
 import type { FC } from 'react';
 import { ChevronDown } from 'lucide-react';
+import { Input } from '../Input';
 
 interface FiltersProps {
   search: string;
@@ -24,25 +25,12 @@ export const Filters: FC<FiltersProps> = ({
     <div className={`${customStyle || 
     'flex flex-row lg:w-[512px] md:w-[240px]'
     }`}>
-      <input
+      <Input
         type="text"
         value={search}
         onChange={(e) => setSearch(e.target.value)}
         disabled={disabled}
         placeholder="Search..."
-        className={`
-            w-full
-            rounded-xl
-            border border-border
-            px-4 py-2
-            ${disabled ? 'bg-gray-200' : 'card'} 
-            shadow-sm
-            focus:outline-none
-            focus:ring-2 focus:ring-primary-hover focus:border-primary-hover
-            placeholder-text-muted
-            transition
-            cursor-card
-            `}
       />
     {users && (
       <div className="relative w-full sm:w-64">
@@ -52,14 +40,19 @@ export const Filters: FC<FiltersProps> = ({
           disabled={disabled}
           className={`
                 appearance-none
-                rounded-xl 
-                border border-gray-200
+                rounded-md 
                 px-4 py-2
-               ${disabled ? 'bg-gray-200' : 'bg-white'} 
-                shadow-sm
-                focus:outline-none 
-                focus:ring-2 focus:ring-blue-400 focus:border-blue-400
-                transition
+                bg-[var(--bg-surface)]
+                text-[var(--text-primary)]
+                border border-[var(--border-subtle)]
+                focus:outline-none
+                focus:border-[var(--accent-primary)]
+                focus:ring-2
+                focus:ring-[var(--accent-primary-soft)]
+                transition-[var(--transition-base)]
+                disabled:bg-[var(--bg-surface-muted)]
+                disabled:text-[var(--text-muted)]
+                disabled:cursor-not-allowed
                 `}
         >
           <option value="">All users</option>

@@ -2,10 +2,10 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { API_URL } from '@/shared/api';
 import type { Post } from "@/entities/post";
 
-export const useUpdatePost = () => {
+export const useUpdatePost = (postId: number) => {
     const client = useQueryClient();
     return useMutation({
-        mutationFn: async ({postId, data}: {postId: number, data: Partial<Post>}) => {
+        mutationFn: async (data: Post) => {
             try {
                 const response = await fetch(`${API_URL}/posts/${postId}`, {
                     method: 'PUT',

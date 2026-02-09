@@ -1,21 +1,20 @@
-import { type FC, useState, useEffect } from "react";
-import toast from "react-hot-toast";
+import { type FC, useState, useEffect } from 'react';
+import toast from 'react-hot-toast';
 import { Modal } from '@/shared/ui/Modal';
-import type { EditPost } from '@/entities/post';
+import { Button } from '@/shared/ui/Button';
+import { Input } from '@/shared/ui/Input';
+import { Field } from '@/shared/ui/Field';
+import type { Post } from '@/entities/post';
 import { useUpdatePost } from '../model/useUpdatePost';
 
 export const EditPostModal: FC<{
   isOpen: boolean;
-  post: EditPost;
+  post: Post;
   onClose: () => void;
-}> = ({
-  isOpen,
-  post,
-  onClose,
-}) => {
+}> = ({ isOpen, post, onClose }) => {
   const [title, setTitle] = useState(post?.title);
   const [body, setBody] = useState(post?.body);
-  const { mutateAsync, isPending } = useUpdatePost();
+  const { mutateAsync, isPending } = useUpdatePost(post?.id);
 
   useEffect(() => {
     if (isOpen) {
@@ -24,17 +23,17 @@ export const EditPostModal: FC<{
     }
   }, [isOpen, post]);
 
-  if (!isOpen) return null;
-
   const handleSave = async () => {
     try {
-      await mutateAsync({ postId: post.id, data: { title, body }});
+      await mutateAsync({
+        ...post,
+        title, 
+        body
+      });
       toast.success('Post updated successfully!');
       onClose();
-    }
-    catch(e) {
+    } catch {
       toast.error('Failed to update post');
-      console.error();
     }
   };
 
@@ -43,50 +42,52 @@ export const EditPostModal: FC<{
       open={isOpen}
       title="Edit Post"
       onClose={onClose}
+      widthClass="max-w-xl"
       footer={
         <>
-          <button
+          <Button
+            variant="secondary"
             onClick={onClose}
-            className="px-4 py-2 rounded-md bg-gray-200 hover:bg-gray-300 dark:bg-zinc-700 dark:hover:bg-zinc-600"
+            disabled={isPending}
           >
             Cancel
-          </button>
-          <button
+          </Button>
+          <Button
             onClick={handleSave}
             disabled={isPending}
-            className="px-4 py-2 rounded-md bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50"
           >
-            {isPending ? "Saving..." : "Save"}
-          </button>
+            {isPending ? 'Saving…' : 'Save'}
+          </Button>
         </>
       }
-      widthClass="max-w-xl"
     >
       <div className="flex flex-col gap-4">
-        <div>
-          <label className="block text-sm font-medium mb-1 text-zinc-700 dark:text-zinc-300">
-            Title
-          </label>
-          <input
-            type="text"
+        <Field label='Title'>
+          <Input
             value={title}
             onChange={(e) => setTitle(e.target.value)}
-            className="w-full p-2 border rounded-md focus:ring-2 focus:ring-blue-400 outline-none dark:bg-zinc-800 dark:border-zinc-600 dark:text-white"
-            placeholder="Enter post title..."
+            placeholder='Enter post title…'
           />
-        </div>
-
-        <div>
-          <label className="block text-sm font-medium mb-1 text-zinc-700 dark:text-zinc-300">
-            Body
-          </label>
+        </Field>
+        <Field label='Content'>
           <textarea
             value={body}
             onChange={(e) => setBody(e.target.value)}
-            className="w-full min-h-[240px] p-3 border rounded-md focus:ring-2 focus:ring-blue-400 outline-none dark:bg-zinc-800 dark:border-zinc-600 dark:text-white"
-            placeholder="Enter post content..."
+            placeholder="Enter post content…"
+            className="
+              w-full min-h-[240px] px-3 py-2
+              rounded-[var(--radius-sm)]
+              bg-[var(--bg-surface)]
+              text-[var(--text-primary)]
+              border border-[var(--border-default)]
+              shadow-[var(--shadow-sm)]
+              transition
+              resize-y
+              focus:outline-none
+              focus:ring-2 focus:ring-[var(--accent-primary)]
+            "
           />
-        </div>
+        </Field>
       </div>
     </Modal>
   );

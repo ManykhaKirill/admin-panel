@@ -3,8 +3,6 @@ import { withReactQuery } from './providers/with-react-query';
 import { Toast } from "./providers/toast";
 import { ThemeProvider } from './providers/theme';
 
-import { PageContainer } from '@/shared/ui/PageContainer';
-
 import { Sidebar } from '@/widgets/sidebar';
 import { Header } from '@/widgets/header';
 
@@ -20,7 +18,7 @@ import { NotFoundPage } from '@/pages/NotFoundPage';
 const AppContent = () => {
   return (
     <ThemeProvider>
-      <div className="flex h-screen w-screen bg-main">
+      <div className="flex h-screen w-screen bg-[var(--bg-app)]">
         <Sidebar />
         <div className="flex-1 flex flex-col">
             <Header />
