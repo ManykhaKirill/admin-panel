@@ -1,10 +1,11 @@
 import { useQuery } from '@tanstack/react-query';
 import { API_URL } from '@/shared/api';
+import type { User } from '@/entities/user';
 
 const USERS_KEY = ['users'];
 
 export const useUsersQuery = () => {
-  return useQuery({
+  return useQuery<User[]>({
     queryKey: USERS_KEY,
     queryFn: async () => {
       try {
@@ -20,7 +21,7 @@ export const useUsersQuery = () => {
 }
 
 export const useUserByIdQuery = (userId: number) => {
-  return useQuery({
+  return useQuery<User>({
     queryKey: [USERS_KEY, userId],
     queryFn: async () => {
       try {

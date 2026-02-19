@@ -17,6 +17,12 @@ export type User = {
   }
 };
 
+export type UserInfoProps = {
+  user: User;
+  variant?: 'default' | 'compact';
+  className?: string;
+}
+
 export type UserEdit = Pick<User, 'id' | 'name' | 'email' | 'phone'>;
 
 export type UserRole = 'Admin' | 'Moderator' | 'User';

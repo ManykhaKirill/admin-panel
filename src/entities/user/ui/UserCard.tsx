@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import type { User } from '../model/user';
 import { PHOTO_URL } from '@/shared/api';
 import { Card } from '@/shared/ui/Card';
-import { UserMeta } from './UserMeta/UserMeta';
 
 export const UserCard: FC<{
   user: User
@@ -49,7 +48,6 @@ export const UserCard: FC<{
           @{user.username}
         </span>
       </div>
-      <UserMeta user={user} />
     </Card>
     )
 }

@@ -1,10 +1,12 @@
 import type { FC } from 'react';
 import { useNavigate } from 'react-router-dom';
-import type { Post } from '../model/post';
+import type { PostCardProps } from '../model/post';
 import { Card } from '@/shared/ui/Card';
+import { UserInfo } from '@/entities/user';
 
-export const PostCard: FC<{ post: Post }> = ({
-    post
+export const PostCard: FC<PostCardProps> = ({
+    post,
+    user
 }) => {
     const navigate = useNavigate();
 
@@ -21,6 +23,7 @@ export const PostCard: FC<{ post: Post }> = ({
         >
             <h3 className="font-semibold text-lg mb-1">{post.title}</h3>
             <p className="text-[var(--text-secondary)] mb-2">{post.body}</p>
+            {user && <UserInfo user={user} variant="compact" />}
         </Card>
     )
 }
