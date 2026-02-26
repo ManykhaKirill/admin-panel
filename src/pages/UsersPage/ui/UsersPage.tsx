@@ -9,7 +9,7 @@ import { useSearchUser } from '@/features/user/search-user';
 
 export const UsersPage = () => {
     const { data: users, isLoading } = useUsersQuery();
-    const filtered = useSearchUser(users);
+    const filtered = useSearchUser(users ?? []);
 
     return (
         <Section name='Users'>

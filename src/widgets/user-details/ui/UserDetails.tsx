@@ -11,7 +11,7 @@ export const UserDetails: FC<{ user: User }> = ({ user }) => {
 
   return (
     <div className="space-y-8">
-      <Card className="p-6 flex items-center gap-6">
+      <Card className="flex p-6 w-1/4 items-center">
         <UserInfo user={user} />
       </Card>
       <div>

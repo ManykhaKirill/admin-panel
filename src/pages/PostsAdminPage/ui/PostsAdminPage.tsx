@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState } from 'react';
 import { usePostsQuery } from '@/entities/post';
 import { CreatePostModal } from '@/features/post/create-post';
 import { EditPostModal } from '@/features/post/edit-post';
@@ -8,7 +8,7 @@ import { useSearchPost } from '@/features/post/search-post';
 
 export const PostsAdminPage = () => {
   const { data: posts, isLoading } = usePostsQuery();
-  const filtered = useSearchPost(posts);
+  const filtered = useSearchPost(posts ?? []);
 
   const [selectedPost, setSelectedPost] = useState<any | null>(null);
   const [isCreateOpen, setIsCreateOpen] = useState(false);
@@ -16,6 +16,7 @@ export const PostsAdminPage = () => {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
   const handleEditClick = (post: { id: number; title: string; body: string }) => {
+    console.log('test');
     setSelectedPost(post);
     setIsEditOpen(true);
   };
@@ -25,9 +26,9 @@ export const PostsAdminPage = () => {
     setIsDeleteModalOpen(true);
   };
 
-  const handleCreateClick = useCallback(() => {
-    setIsCreateOpen(true);
-  },[setIsCreateOpen]);
+  // const handleCreateClick = useCallback(() => {
+  //   setIsCreateOpen(true);
+  // },[setIsCreateOpen]);
 
     return (
     <>

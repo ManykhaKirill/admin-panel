@@ -8,7 +8,7 @@ import { useSearchUser } from '@/features/user/search-user';
 
 export const UsersAdminPage: FC = () => {
   const { data: users, isLoading } = useUsersQuery();
-  const filtered = useSearchUser(users);
+  const filtered = useSearchUser(users ?? []);
 
   const [selectedUser, setSelectedUser] = useState<any | null>(null);
   const [isCreateOpen, setIsCreateOpen] = useState(false);

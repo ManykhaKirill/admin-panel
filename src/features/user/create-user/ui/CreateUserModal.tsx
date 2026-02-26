@@ -1,4 +1,4 @@
-import { type FC, useState, useEffect } from 'react';
+import { type FC, useState } from 'react';
 import toast from "react-hot-toast";
 import { Modal } from '@/shared/ui/Modal';
 import { useCreateUser } from '../model/useCreateUser';

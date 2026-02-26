@@ -12,7 +12,7 @@ import { useSearchPost } from '@/features/post/search-post';
 export const PostsPage: FC = () => {
   const { data: posts, isLoading: isPostsLoading } = usePostsQuery();
   const { data: users } = useUsersQuery();
-  const filtered = useSearchPost(posts);
+  const filtered = useSearchPost(posts!);
 
   const usersMap = useMemo(() => {
     if(!users) return {};

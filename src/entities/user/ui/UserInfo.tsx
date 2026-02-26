@@ -17,8 +17,8 @@ export const UserInfo: FC<UserInfoProps> = ({
       `}
     >
       <img
-        src={PHOTO_URL + user.id}
-        alt={user.name}
+        src={PHOTO_URL + user?.id}
+        alt={user?.name}
         className={`
           rounded-full
           border border-[var(--border-subtle)]
@@ -29,23 +29,23 @@ export const UserInfo: FC<UserInfoProps> = ({
 
       <div className="flex flex-col">
         <span className="font-semibold text-[var(--text-primary)]">
-          {user.name}
+          {user?.name}
         </span>
 
         <span className="text-sm text-[var(--text-muted)]">
-          @{user.username}
+          @{user?.username}
         </span>
 
         {!isCompact && (
           <>
             <span className="text-sm text-[var(--text-secondary)]">
-              {user.email}
+              {user?.email}
             </span>
             <span className="text-sm text-[var(--text-secondary)]">
-              {user.phone}
+              {user?.phone}
             </span>
             <span className="text-sm text-[var(--text-secondary)]">
-              {user.website}
+              {user?.website}
             </span>
           </>
         )}

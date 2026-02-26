@@ -1,19 +1,16 @@
 import { useParams } from 'react-router-dom';
 import { UserDetails } from '@/widgets/user-details';
 import { useUserByIdQuery, UserDetailsSkeleton } from '@/entities/user';
+import { SectionDetails } from '@/shared/ui/SectionDetails';
+import { ErrorPage } from '@/widgets/ErrorPage';
 
 export const UserDetailsPage = () => {
     const { id } = useParams();
-    const { data: user, isLoading } = useUserByIdQuery(Number(id));
+    const { data: user, isLoading, isSuccess } = useUserByIdQuery(Number(id));
 
     return (
-        <div className="space-y-8">
-            {isLoading ? (
-                <UserDetailsSkeleton /> 
-            ) : (
-                <UserDetails user={user} />
-            )}
-        </div>
-        
+        <SectionDetails isLoading={isLoading} loader={<UserDetailsSkeleton />}>
+            {isSuccess ? <UserDetails user={user} /> : <ErrorPage />}
+        </SectionDetails>
     )
 }

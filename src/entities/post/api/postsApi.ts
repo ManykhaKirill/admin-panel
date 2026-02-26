@@ -1,10 +1,11 @@
 import { useQuery } from '@tanstack/react-query';
 import { API_URL } from '@/shared/api';
+import type { Post } from '@/entities/post';
 
 const POSTS_KEY = ['posts'];
 
 export const usePostsQuery = () => {
-  return useQuery({
+  return useQuery<Post[]>({
     queryKey: POSTS_KEY, 
     queryFn: async () => {
         try {
@@ -19,7 +20,7 @@ export const usePostsQuery = () => {
 };
 
 export const usePostByIdQuery = (postId: string) => {
-    return useQuery({
+    return useQuery<Post>({
         queryKey: [POSTS_KEY, postId],
         queryFn: async () => {
             try {

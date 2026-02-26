@@ -1,5 +1,6 @@
 import type { FC } from 'react';
 import { type Post, PostDetailsCard } from '@/entities/post';
+import { UserInfo } from '@/entities/user';
 import { useUserByIdQuery } from '@/entities/user';
 import {
   useCommentByIdQuery,
@@ -19,7 +20,13 @@ export const PostDetails: FC<{
 
   return (
     <div className="space-y-8">
-      <PostDetailsCard post={post} user={user} isLoading={isUserLoading} />
+      <PostDetailsCard post={post}>
+        {isUserLoading || !user ? (
+          <div className="h-4 w-32 rounded bg-[var(--border-subtle)]" />
+              ) : ( 
+          <UserInfo user={user} variant="compact" />
+        )}
+      </PostDetailsCard>
       <section>
         <h2 className="
           text-xl
