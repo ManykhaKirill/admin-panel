@@ -85,7 +85,7 @@ Skeleton components replicate the final layout structure to:
 
 ---
 
-## Theming
+## 🌗 Theming
 
 Light and dark themes share identical token structure.
 
@@ -93,7 +93,7 @@ This ensures predictable styling and maintainable scaling.
 
 ---
 
-## Performance Considerations
+## 📈 Performance Considerations
 
 - Memoized derived data
 - No redundant API calls
@@ -102,7 +102,7 @@ This ensures predictable styling and maintainable scaling.
 
 ---
 
-## Run Locally
+## 🚀 Run Locally
 
 ```bash
 npm install
