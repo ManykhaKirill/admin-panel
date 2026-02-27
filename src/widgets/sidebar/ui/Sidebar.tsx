@@ -16,40 +16,6 @@ export const Sidebar = () => (
       flex flex-col
       border-r border-[var(--border-subtle)]"
     >
-    <div className="px-6 py-4 border-b border-[var(--border-subtle)]">
-  <div className="flex items-center gap-3 group cursor-pointer">
-    <div
-  className="
-    w-10 h-10
-    rounded-md
-    border
-    border-[var(--accent-primary)]
-    text-[var(--accent-primary)]
-    flex items-center justify-center
-    font-semibold
-    transition-all duration-200
-    group-hover:bg-[var(--accent-primary-soft)]
-  "
->
-  MA
-</div>
-    <div className="flex flex-col leading-tight">
-        <span className="
-          text-base font-semibold
-          text-[var(--text-primary)]
-        ">
-          Mini Admin
-        </span>
-      <span className="
-        text-xs
-        text-[var(--text-muted)]
-      ">
-        Admin System
-      </span>
-    </div>
-
-  </div>
-</div>
     <nav className="flex flex-col flex-1 p-4 gap-2">
       <SidebarLink to="/posts" icon={<FileText size={20} />}>Posts</SidebarLink>
       <SidebarLink to="/users" icon={<Users size={20} />}>Users</SidebarLink>

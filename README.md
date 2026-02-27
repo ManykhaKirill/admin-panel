@@ -1,69 +1,109 @@
-# React + TypeScript + Vite
+# MiniAdmin
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+System-oriented admin dashboard built with **React + TypeScript**.
 
-Currently, two official plugins are available:
+The goal of this project is to demonstrate scalable frontend architecture, reusable UI abstractions, and a consistent design system rather than visual experimentation.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## Expanding the ESLint configuration
+## ⚙️ Tech Stack
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- React
+- TypeScript
+- Vite
+- Zustand
+- Tailwind CSS
+- CSS Variables (Design Tokens)
+- JSONPlaceholder API
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+---
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+## 🏗 Architecture
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+The project follows an FSD-inspired structure with clear separation of responsibilities:
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+---
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### Principles
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+- Page-level data orchestration
+- Dumb UI components
+- Feature isolation
+- Strict typing across the app
+- Reusable generic abstractions
+
+---
+
+### 1. Generic Table Component
+
+The `Table<T>` component is fully typed and reusable:
+
+- Generic data support
+- Action column injection (edit/delete)
+- Loading and error states
+
+This allows reusing the same table across different entities.
+
+---
+
+### 2. Data Normalization
+
+To avoid N+1 requests when rendering posts with author info:
+
+- Users are fetched once
+- Normalized into a `Record<number, User>`
+- Passed into components via page-level orchestration
+
+This reduces redundant API calls and unnecessary re-renders.
+
+---
+
+### 3. Design Token System
+
+All UI styles rely on CSS variables:
+
+- Surface tokens
+- Text hierarchy
+- Border system
+- Accent system
+- State colors
+- Light / Dark parity
+
+No hardcoded colors inside components.
+
+Theme switching is controlled via `data-theme` attribute.
+
+---
+
+### 4. Loading States & Layout Stability
+
+Skeleton components replicate the final layout structure to:
+
+- Prevent layout shift
+- Improve perceived performance
+- Maintain UI consistency
+
+---
+
+## Theming
+
+Light and dark themes share identical token structure.
+
+This ensures predictable styling and maintainable scaling.
+
+---
+
+## Performance Considerations
+
+- Memoized derived data
+- No redundant API calls
+- Controlled re-renders
+- Layout-stable skeletons
+
+---
+
+## Run Locally
+
+```bash
+npm install
+npm run dev
