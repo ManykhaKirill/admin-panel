@@ -2,6 +2,9 @@
 
 System-oriented admin dashboard built with **React + TypeScript**.
 
+Live-demo - [MiniAdmin](https://mini-admin-psi.vercel.app/)
+
+
 The goal of this project is to demonstrate scalable frontend architecture, reusable UI abstractions, and a consistent design system rather than visual experimentation.
 
 ---
